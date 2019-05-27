@@ -1,0 +1,15 @@
+.idea/*
+*/target/*
+target/*
+*.iml
+*/*.iml
+.Ds_Store
+src/.DS_Store
+src/main/.DS_Store
+spark-warehouse
+*.log
+*/*.log
+config/*
+*/config/*
+logs/*
+*/logs/*
