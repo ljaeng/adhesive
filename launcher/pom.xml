@@ -11,5 +11,43 @@
 
     <artifactId>launcher</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>input</artifactId>
+            <version>${input.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>output</artifactId>
+            <version>${output.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>plugin</artifactId>
+            <version>${plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>core</artifactId>
+            <version>${core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>process</artifactId>
+            <version>${process.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>udf</artifactId>
+            <version>${udf.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

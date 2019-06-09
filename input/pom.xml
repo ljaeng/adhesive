@@ -11,5 +11,18 @@
 
     <artifactId>input</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>core</artifactId>
+            <version>${core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
