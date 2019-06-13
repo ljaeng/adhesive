@@ -2,10 +2,14 @@ package com.jaeng.adhesive.plugin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.constant.PluginConstant;
+import com.jaeng.adhesive.common.util.BeetlTemplateUtil;
 import com.jaeng.adhesive.common.util.JdbcConnect;
 import com.jaeng.adhesive.core.component.AbstractPlugin;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.spark.sql.SparkSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -14,6 +18,8 @@ import java.util.Map;
  * @date 2019/6/9
  */
 public class JdbcPlugin extends AbstractPlugin {
+
+    private Logger logger = LoggerFactory.getLogger(JdbcPlugin.class);
 
     private String url;
     private String user;
@@ -38,33 +44,33 @@ public class JdbcPlugin extends AbstractPlugin {
 
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
-        JdbcConnect jdbcConnect = null;
-        try {
-            if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
-                jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_MYSQL_DRIVER);
-            } else if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
-                jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_HIVE_DRIVER);
+        if (!StringUtils.isEmpty(condition) && !BeetlTemplateUtil.eval(context, condition)) {
+
+            logger.info("不符合条件，不执行!");
+        } else {
+            JdbcConnect jdbcConnect = null;
+            try {
+                if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
+                    jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_MYSQL_DRIVER);
+                } else if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
+                    jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_HIVE_DRIVER);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (jdbcConnect != null) {
-            if (PluginConstant.PLUGIN_JDBC_ACTION_UPDATE.equals(action)) {
-                try {
-                    jdbcConnect.update(sql, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (jdbcConnect != null) {
-                        jdbcConnect.release();
+            if (jdbcConnect != null) {
+                if (PluginConstant.PLUGIN_JDBC_ACTION_UPDATE.equals(action)) {
+                    try {
+                        jdbcConnect.update(sql, null);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (jdbcConnect != null) {
+                            jdbcConnect.release();
+                        }
                     }
                 }
             }
         }
-    }
-
-    @Override
-    public String getRegisterName() {
-        return "jdbc";
     }
 }

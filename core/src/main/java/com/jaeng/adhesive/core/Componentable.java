@@ -3,11 +3,20 @@ package com.jaeng.adhesive.core;
 import com.jaeng.adhesive.core.component.Component;
 
 /**
+ * 组件化
+ *
  * @author lizheng
  * @date 2019/6/9
  */
 public interface Componentable<T extends Component> {
 
-    T getComponent(String type, String name);
+    /**
+     * 获取组件实例
+     *
+     * @param type
+     * @param name
+     * @return
+     */
+    T getComponent(String type, String name) throws Exception;
 
 }

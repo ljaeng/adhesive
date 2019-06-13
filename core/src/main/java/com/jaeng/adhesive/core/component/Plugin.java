@@ -6,5 +6,5 @@ import com.jaeng.adhesive.core.Registerable;
  * @author lizheng
  * @date 2019/6/9
  */
-public interface Plugin extends Component, Registerable {
+public interface Plugin extends Component {
 }

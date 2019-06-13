@@ -69,8 +69,4 @@ public class AlarmPlugin extends AbstractPlugin {
         }
     }
 
-    @Override
-    public String getRegisterName() {
-        return "alarm";
-    }
 }

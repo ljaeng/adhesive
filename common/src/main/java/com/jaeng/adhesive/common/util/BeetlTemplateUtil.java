@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Beetl模版工具
+ *
  * @author lizheng
  * @date 2019/6/9
  */
@@ -22,7 +24,7 @@ public class BeetlTemplateUtil {
         init();
     }
 
-    public static void init(){
+    public static void init() {
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
         Configuration cfg = null;
         try {
@@ -51,12 +53,12 @@ public class BeetlTemplateUtil {
     }
 
     public static String render(Map<String, Object> param, String template) {
-        if(param == null){
+        if (param == null) {
             return template;
-        }else {
+        } else {
             Template t = gt.getTemplate(template);
 
-            for(Map.Entry<String, Object> p: param.entrySet()){
+            for (Map.Entry<String, Object> p : param.entrySet()) {
 
                 t.binding(p.getKey(), p.getValue());
             }
@@ -66,19 +68,19 @@ public class BeetlTemplateUtil {
 
     }
 
-    public static boolean eval(Map<String, Object> param, String expression){
+    public static boolean eval(Map<String, Object> param, String expression) {
 
-        if(!StringUtils.isEmpty(expression)){
+        if (!StringUtils.isEmpty(expression)) {
             String text = "<%\n" +
                     "var expression_eval = (" + expression + ");\n" +
                     "%>\n" +
                     "${expression_eval}";
             try {
                 String result = render(param, text);
-                if(!StringUtils.isEmpty(result) && "true".equals(result.trim())){
+                if (!StringUtils.isEmpty(result) && "true".equals(result.trim())) {
                     return true;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -97,9 +99,9 @@ public class BeetlTemplateUtil {
 
         System.out.println(data);
         System.out.println(render(data, "<%\n" +
-                "var a = {};\n"+
+                "var a = {};\n" +
                 "print(a);\n" +
                 "\n%>\n"
-                +"${key1}, ${a}, ${date(), 'yyyy-MM-dd'}, ${key_sub.id_1}"));
+                + "${key1}, ${a}, ${date(), 'yyyy-MM-dd'}, ${key_sub.id_1}"));
     }
 }

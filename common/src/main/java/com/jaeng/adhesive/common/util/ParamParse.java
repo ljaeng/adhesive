@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 项目启动参数的解析工具
+ *
  * @author lizheng
  * @date 2019/6/9
  */

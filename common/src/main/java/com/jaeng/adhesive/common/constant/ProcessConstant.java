@@ -1,6 +1,8 @@
 package com.jaeng.adhesive.common.constant;
 
 /**
+ * 执行过程的静态常量
+ *
  * @author lizheng
  * @date 2019/6/6
  */

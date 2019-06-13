@@ -11,4 +11,12 @@
 
     <artifactId>core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.jaeng.adhesive</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

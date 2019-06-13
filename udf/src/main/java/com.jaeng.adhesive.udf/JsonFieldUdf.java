@@ -3,6 +3,8 @@ package com.jaeng.adhesive.udf;
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.core.Registerable;
 import org.apache.spark.sql.api.java.UDF2;
+import org.apache.spark.sql.types.DataType;
+import org.apache.spark.sql.types.DataTypes;
 
 /**
  * 根据Key获取Json字符串中的Value
@@ -29,5 +31,10 @@ public class JsonFieldUdf implements UDF2<String, String, String>, Registerable 
     @Override
     public String getRegisterName() {
         return "get_json_field";
+    }
+
+    @Override
+    public DataType getDataType() {
+        return DataTypes.StringType;
     }
 }

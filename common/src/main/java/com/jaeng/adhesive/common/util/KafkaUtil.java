@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
+ * Kafka工具
+ *
  * @author lizheng
  * @date 2019/6/8
  */

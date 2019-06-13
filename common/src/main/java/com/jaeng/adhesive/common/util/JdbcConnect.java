@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Jdbc连接工具
+ *
  * @author lizheng
  * @date 2019/6/9
  */

@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * Http请求工具
+ *
  * @author lizheng
  * @date 2019/6/9
  */

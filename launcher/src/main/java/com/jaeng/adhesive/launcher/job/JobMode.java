@@ -1,4 +1,4 @@
-package com.jaeng.adhesive.launcher;
+package com.jaeng.adhesive.launcher.job;
 
 /**
  * @author lizheng
@@ -7,11 +7,16 @@ package com.jaeng.adhesive.launcher;
 public enum JobMode {
 
     JSON_MODE("json"),
+    FILE_MODE("file"),
     LINE_MODE("line"),;
 
     String desc;
 
     JobMode(String desc) {
         this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

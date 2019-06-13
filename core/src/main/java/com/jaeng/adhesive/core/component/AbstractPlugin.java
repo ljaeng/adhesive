@@ -20,4 +20,5 @@ public abstract class AbstractPlugin implements Plugin {
         return this.conf;
     }
 
+
 }

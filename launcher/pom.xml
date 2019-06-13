@@ -48,6 +48,12 @@
             <version>${udf.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>${jline.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
