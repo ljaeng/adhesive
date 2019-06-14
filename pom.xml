@@ -9,25 +9,13 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>input</module>
-        <module>output</module>
-        <module>plugin</module>
         <module>common</module>
-        <module>launcher</module>
         <module>core</module>
-        <module>process</module>
-        <module>udf</module>
     </modules>
 
     <properties>
-        <input.version>1.0-SNAPSHOT</input.version>
-        <output.version>1.0-SNAPSHOT</output.version>
-        <plugin.version>1.0-SNAPSHOT</plugin.version>
         <common.version>1.0-SNAPSHOT</common.version>
-        <launcher.version>1.0-SNAPSHOT</launcher.version>
         <core.version>1.0-SNAPSHOT</core.version>
-        <process.version>1.0-SNAPSHOT</process.version>
-        <udf.version>1.0-SNAPSHOT</udf.version>
 
         <spark.version>2.1.1</spark.version>
         <guava.version>23.0</guava.version>
@@ -40,7 +28,6 @@
         <hive.version>1.1.0</hive.version>
         <beetl.version>2.9.8</beetl.version>
         <kafkaclient.version>1.0.0</kafkaclient.version>
-        <jline.version>2.11</jline.version>
     </properties>
 
     <dependencies>
