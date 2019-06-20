@@ -18,6 +18,10 @@ public class TaskUtil {
         line = line.trim().replaceAll(";+$", "");
         line = BeetlTemplateUtil.render(context, line);
 
+        String action = line.split(" ")[0];
+        String actionLow = action.toLowerCase();
+        line = line.replaceFirst(action, actionLow);
+
         Task task;
         if (line.startsWith("save")) {
             //TODO:done
@@ -41,11 +45,13 @@ public class TaskUtil {
         } else if (line.startsWith("clear")) {
             //TODO:done
             task = new ClearTask();
+        } else if (line.startsWith("show")) {
+            //TODO:done
+            task = new ShowTask();
         } else if (line.startsWith("help")) {
             //TODO:done
             task = new HelpTask();
-        }
-        else {
+        } else {
             //TODO:done
             task = new ConsoleTask();
         }

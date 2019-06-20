@@ -2,6 +2,7 @@ package com.jaeng.adhesive.core.plugin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.constant.PluginConstant;
+import com.jaeng.adhesive.common.enums.JdbcEnum;
 import com.jaeng.adhesive.common.util.BeetlTemplateUtil;
 import com.jaeng.adhesive.common.util.JdbcConnect;
 import org.apache.commons.collections.MapUtils;
@@ -32,7 +33,7 @@ public class JdbcPlugin extends AbstractPlugin {
     public void setConf(JSONObject conf) {
         super.setConf(conf);
 
-        this.type = MapUtils.getString(conf, "type", PluginConstant.PLUGIN_JDBC_HIVE_DRIVER);
+        this.type = MapUtils.getString(conf, "type", JdbcEnum.HIVE.getDriver());
         this.url = MapUtils.getString(conf, "url", "");
         this.user = MapUtils.getString(conf, "user", "");
         this.password = MapUtils.getString(conf, "password", "");
@@ -49,10 +50,10 @@ public class JdbcPlugin extends AbstractPlugin {
         } else {
             JdbcConnect jdbcConnect = null;
             try {
-                if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
-                    jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_MYSQL_DRIVER);
-                } else if (PluginConstant.PLUGIN_JDBC_HIVE_TYPE.equals(type)) {
-                    jdbcConnect = new JdbcConnect(url, user, password, PluginConstant.PLUGIN_JDBC_HIVE_DRIVER);
+                if (JdbcEnum.HIVE.getType().equals(type)) {
+                    jdbcConnect = new JdbcConnect(url, user, password, JdbcEnum.HIVE.getDriver());
+                } else if (JdbcEnum.MYSQL.getType().equals(type)) {
+                    jdbcConnect = new JdbcConnect(url, user, password, JdbcEnum.MYSQL.getDriver());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

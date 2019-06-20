@@ -15,21 +15,28 @@ import java.util.Map;
 public class ConsoleProcess extends AbstractProcess {
 
     private String sql;
+    private boolean showSchema;
 
     @Override
     public void setConf(JSONObject conf) {
         super.setConf(conf);
         this.sql = MapUtils.getString(conf, "sql", "");
+        this.showSchema = MapUtils.getBooleanValue(conf, "showSchema", false);
     }
 
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
         Dataset dataset = null;
-        if (StringUtils.isNotBlank(sql)) {
-            dataset = sparkSession.sql(sql);
-        }
-        if (dataset != null) {
-            dataset.show();
+        if (showSchema) {
+            dataset = super.getProcessDataSet(sparkSession, context);
+            dataset.printSchema();
+        } else {
+            if (StringUtils.isNotBlank(sql)) {
+                dataset = sparkSession.sql(sql);
+            }
+            if (dataset != null) {
+                dataset.show();
+            }
         }
     }
 }

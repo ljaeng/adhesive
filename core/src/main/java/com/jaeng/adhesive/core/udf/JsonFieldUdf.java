@@ -20,7 +20,7 @@ public class JsonFieldUdf implements UDF2<String, String, String>, Registerable 
         try {
             jsonObject = JSONObject.parseObject(jsonStr);
         } catch (Exception e) {
-            System.out.println(String.format("[JsonFieldUdf] 解析Json字符串错误.[%jsonStr]", key));
+            System.out.println(String.format("[JsonFieldUdf] 解析Json字符串错误.[%s]", key));
         }
         if (jsonObject != null) {
             return jsonObject.getString(key);

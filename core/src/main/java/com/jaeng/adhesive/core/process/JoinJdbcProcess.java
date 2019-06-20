@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.constant.PluginConstant;
 import com.jaeng.adhesive.common.constant.ProcessConstant;
+import com.jaeng.adhesive.common.enums.JdbcEnum;
 import com.jaeng.adhesive.common.util.JdbcConnect;
 import com.jaeng.adhesive.common.util.NumberUtil;
 import org.apache.commons.collections.MapUtils;
@@ -45,7 +46,7 @@ public class JoinJdbcProcess extends AbstractProcess {
         this.jdbcUrl = MapUtils.getString(conf, "jdbcUrl");
         this.batch = MapUtils.getIntValue(conf, "batch", 100);
 
-        this.type = MapUtils.getString(conf, "type", PluginConstant.PLUGIN_JDBC_HIVE_DRIVER);
+        this.type = MapUtils.getString(conf, "type", JdbcEnum.HIVE.getType());
         this.user = MapUtils.getString(conf, "user", "");
         this.password = MapUtils.getString(conf, "password", "");
     }
@@ -63,10 +64,10 @@ public class JoinJdbcProcess extends AbstractProcess {
             Dataset result = dataset.mapPartitions((MapPartitionsFunction) input -> {
                 JdbcConnect jdbcConnect = null;
                 try {
-                    if (ProcessConstant.PROCESS_JDBC_MYSQL_TYPE.equals(type)) {
-                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, ProcessConstant.PROCESS_JDBC_MYSQL_DRIVER);
-                    } else if (ProcessConstant.PROCESS_JDBC_HIVE_TYPE.equals(type)) {
-                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, ProcessConstant.PROCESS_JDBC_HIVE_DRIVER);
+                    if (JdbcEnum.MYSQL.getType().equals(type)) {
+                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, JdbcEnum.MYSQL.getDriver());
+                    } else if (JdbcEnum.HIVE.getType().equals(type)) {
+                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, JdbcEnum.HIVE.getDriver());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

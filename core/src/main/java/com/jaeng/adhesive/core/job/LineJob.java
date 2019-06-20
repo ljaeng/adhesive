@@ -19,9 +19,9 @@ public class LineJob extends AbstractJob {
 
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
-        System.out.println("---------------------");
+        System.out.println("---------------------------");
         System.out.println("进入命令行模式");
-        System.out.println("---------------------");
+        System.out.println("---------------------------");
 
         Scanner reader = new Scanner(System.in);
 
@@ -41,6 +41,8 @@ public class LineJob extends AbstractJob {
 
                         if (line.startsWith("stop") || line.startsWith("exit") || line.startsWith("quit")) {
                             processFlag = false;
+                            System.out.println("\n------------Bye------------");
+                            System.out.println("---------------------------");
                             break;
                         }
                         long start = System.currentTimeMillis();

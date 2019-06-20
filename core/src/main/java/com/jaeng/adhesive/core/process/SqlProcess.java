@@ -1,6 +1,7 @@
 package com.jaeng.adhesive.core.process;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jaeng.adhesive.common.constant.Constant;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.spark.sql.Dataset;
@@ -35,7 +36,7 @@ public class SqlProcess extends AbstractProcess {
             boolean contextCache = context.containsKey("cache") ? Boolean.parseBoolean(context.get("cache").toString()) : false;
             if (cache || contextCache) {
                 dataset = dataset.cache();
-                LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get("cache_dataset");
+                LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get(Constant.CACHE_DATASET_LIST);
                 cacheDataset.add(dataset);
                 context.remove("cache");
             }

@@ -2,6 +2,7 @@ package com.jaeng.adhesive.core.source;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.constant.InputConstant;
+import com.jaeng.adhesive.common.enums.JdbcEnum;
 import org.apache.commons.collections.MapUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -38,10 +39,12 @@ public class JdbcSource extends AbstractSource {
         connectionProperties.put("user", this.userName);
         connectionProperties.put("password", this.password);
 
-        if (InputConstant.INPUT_JDBC_POSRGRESQL_TYPE.equals(jdbcType)) {
-            connectionProperties.put("driver", InputConstant.INPUT_POSRGRESQL_DRIVER);
-        } else if (InputConstant.INPUT_JDBC_MYSQL_TYPE.equals(jdbcType)) {
-            connectionProperties.put("driver", InputConstant.INPUT_MYSQL_DRIVER);
+        if (JdbcEnum.POSTGRE.getType().equals(jdbcType)) {
+            connectionProperties.put("driver", JdbcEnum.POSTGRE.getDriver());
+        } else if (JdbcEnum.MYSQL.getType().equals(jdbcType)) {
+            connectionProperties.put("driver", JdbcEnum.MYSQL.getDriver());
+        } else if (JdbcEnum.HIVE.getType().equals(jdbcType)) {
+            connectionProperties.put("driver", JdbcEnum.HIVE.getDriver());
         }
 
         Dataset<Row> dataset = sparkSession

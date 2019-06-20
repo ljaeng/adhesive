@@ -28,6 +28,7 @@
         <hive.version>1.1.0</hive.version>
         <beetl.version>2.9.8</beetl.version>
         <kafkaclient.version>1.0.0</kafkaclient.version>
+        <log4j.version>1.2.16</log4j.version>
     </properties>
 
     <dependencies>
@@ -71,11 +72,11 @@
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-yarn-server-web-proxy</artifactId>
-            <version>${hadoop.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.hadoop</groupId>-->
+            <!--<artifactId>hadoop-yarn-server-web-proxy</artifactId>-->
+            <!--<version>${hadoop.version}</version>-->
+        <!--</dependency>-->
 
         <!--spark-->
         <dependency>
@@ -152,6 +153,14 @@
                     <groupId>org.apache.hive</groupId>
                     <artifactId>hive-shims</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpcore</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -162,6 +171,26 @@
             <version>${kafkaclient.version}</version>
         </dependency>
 
+        <!--log4j-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.fastinfoset/FastInfoset -->
+        <!--<dependency>-->
+            <!--<groupId>com.sun.xml.fastinfoset</groupId>-->
+            <!--<artifactId>FastInfoset</artifactId>-->
+            <!--<version>1.2.2</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/javax.jms/jms &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>javax.jms</groupId>-->
+            <!--<artifactId>jms</artifactId>-->
+            <!--<version>1.1</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
@@ -183,11 +212,11 @@
         <repository>
             <id>releases</id>
             <name>releases</name>
-            <url>http://mvn.zxtd.com.cn/content/repositories/releases/</url>
+            <url>http://maven.aliyun.com/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            <url>http://mvn.zxtd.com.cn/content/repositories/snapshots</url>
+            <url>http://maven.aliyun.com/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 

@@ -31,11 +31,6 @@ public class InputConstant {
     /**
      * -----------------------------JDBC Start-----------------------------------------------
      */
-    public static final String INPUT_JDBC_MYSQL_TYPE = "mysql";
-    public static final String INPUT_JDBC_POSRGRESQL_TYPE = "postgre";
-
-    public static final String INPUT_POSRGRESQL_DRIVER = "org.postgresql.Driver";
-    public static final String INPUT_MYSQL_DRIVER = "com.mysql.jdbc.Driver";
 
     /**
      * -----------------------------JDBC End-----------------------------------------------

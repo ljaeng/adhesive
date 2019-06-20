@@ -61,3 +61,35 @@ SELECT * from device_info_price;
 save jdbc.`{"url":"jdbc:mysql://192.168.236.10:3306/miui_db_test", "userName":"root","password":"root","jdbcTable":"device_info_price","jdbcType":"mysql"}` SELECT * from device_info_price;
 
 stop;
+
+create table text_table as text.`/Users/jaeng/Developments/OwnProject/adhesive/file/text_file`;
+
+select * from text_table;
+
+select text_split_value(value, "\t", 0) as dt, text_split_value(value, "\t", 5) as version from text_table;
+
+set path as select join_file_path_with_time_range("/Users/jaeng/Developments/OwnProject/adhesive/file/dt=", "20190601", "20190603");
+
+get path;
+
+create table text_table as text.`${path}`;
+select * from text_table;
+create table text_table as text.`/Users/jaeng/Developments/OwnProject/adhesive/file/dt={20190601..20190603}`;
+
+
+---
+create table device_price as
+select device,price from
+(SELECT 'ido' as device,
+        20 as price
+UNION
+SELECT 'hennessy' as device,
+        30 as price
+UNION
+SELECT 'virgo' as device,
+        40 as price
+) a
+where 1=1;
+process repatition.`{"table":"device_price","partiton":1}`;
+save text.`/Users/jaeng/Developments/OwnProject/adhesive/file/device_price_text` SELECT * from device_price;
+

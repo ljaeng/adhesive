@@ -23,12 +23,6 @@ public class PluginConstant {
      * -----------------------------JDBCPlugin Start-----------------------------------------------
      */
 
-    public static final String PLUGIN_JDBC_MYSQL_TYPE = "mysql";
-    public static final String PLUGIN_JDBC_HIVE_TYPE = "hive";
-
-    public static final String PLUGIN_JDBC_MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String PLUGIN_JDBC_HIVE_DRIVER = "org.apache.hive.jdbc.HiveDriver";
-
     public static final String PLUGIN_JDBC_ACTION_UPDATE = "update";
     /**
      * -----------------------------JDBCPlugin End-----------------------------------------------

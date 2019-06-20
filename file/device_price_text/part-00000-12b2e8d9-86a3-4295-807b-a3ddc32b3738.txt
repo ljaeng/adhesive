@@ -1,0 +1,3 @@
+hennessy	30
+virgo	40
+ido	20

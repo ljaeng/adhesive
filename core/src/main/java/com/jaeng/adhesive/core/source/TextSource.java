@@ -12,7 +12,8 @@ import java.util.Map;
 public class TextSource extends AbstractSource {
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
-        Dataset dataset = sparkSession.read().textFile(path.split(","));
+        Dataset dataset = sparkSession.read().textFile(path);
+//        Dataset dataset = sparkSession.read().textFile(path.split(","));
         super.registerTable(context, dataset);
     }
 }

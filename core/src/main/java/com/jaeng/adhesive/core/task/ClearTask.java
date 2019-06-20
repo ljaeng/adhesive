@@ -1,5 +1,6 @@
 package com.jaeng.adhesive.core.task;
 
+import com.jaeng.adhesive.common.constant.Constant;
 import com.jaeng.adhesive.core.job.AbstractJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SparkSession;
@@ -22,13 +23,13 @@ public class ClearTask extends AbstractTask {
         if ("table".equals(action)) {
             sparkSession.sqlContext().clearCache();
         } else if ("cache".equals(action)) {
-            LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get("cache_dataset");
+            LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get(Constant.CACHE_DATASET_LIST);
             for (Dataset dataset : cacheDataset) {
                 dataset.unpersist();
             }
             cacheDataset.clear();
         } else {
-            LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get("cache_dataset");
+            LinkedList<Dataset> cacheDataset = (LinkedList<Dataset>) context.get(Constant.CACHE_DATASET_LIST);
             Dataset dataset = null;
             try {
                 dataset = (Dataset) context.get(action);

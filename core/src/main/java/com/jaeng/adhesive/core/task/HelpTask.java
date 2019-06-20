@@ -17,6 +17,7 @@ public class HelpTask extends AbstractTask {
 
         StringBuilder helpSb = new StringBuilder();
 
+        helpSb.append("\n");
         helpSb.append("设置变量:\n");
         helpSb.append("\tset a = 1;\n");
         helpSb.append("\tset b as select unix_timestamp();\n");

@@ -1,5 +1,6 @@
 package com.jaeng.adhesive.core.job;
 
+import com.jaeng.adhesive.common.constant.Constant;
 import com.jaeng.adhesive.common.enums.ComponentTypeEnum;
 import com.jaeng.adhesive.common.util.ClassUtil;
 import com.jaeng.adhesive.common.util.ParamParse;
@@ -7,17 +8,19 @@ import com.jaeng.adhesive.core.api.Component;
 import com.jaeng.adhesive.core.api.Componentable;
 import com.jaeng.adhesive.core.api.Job;
 import com.jaeng.adhesive.core.api.Registerable;
+import com.jaeng.adhesive.core.udf.JoinFilePathWithTimeRange;
+import com.jaeng.adhesive.core.udf.JsonFieldUdf;
+import com.jaeng.adhesive.core.udf.TextSplitUdf;
 import org.apache.commons.lang.StringUtils;
+import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.UDFRegistration;
+import org.apache.spark.sql.types.DataTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author lizheng
@@ -44,15 +47,19 @@ public abstract class AbstractJob implements Job, Componentable {
 
         UDFRegistration udfRegistration = sparkSession.sqlContext().udf();
         //注册Udf
-        Set<Class<?>> udfClassSet = ClassUtil.getClassSet(ComponentTypeEnum.UDF.getType());
-        for (Class<?> udfClass : udfClassSet) {
-            try {
-                Registerable udf = (Registerable) udfClass.newInstance();
-                udfRegistration.registerJava(udf.getRegisterName(), udfClass.getName(), udf.getDataType());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        //TODO:反射方式本地生效，打了Jar之后会报错，需要排查原因
+//        Set<Class<?>> udfClassSet = ClassUtil.getClassSet(ComponentTypeEnum.UDF.getPackageName());
+//        for (Class<?> udfClass : udfClassSet) {
+//            try {
+//                Registerable udf = (Registerable) udfClass.newInstance();
+//                udfRegistration.registerJava(udf.getRegisterName(), udfClass.getName(), udf.getDataType());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+        udfRegistration.registerJava("join_file_path_with_time_range", JoinFilePathWithTimeRange.class.getName(), DataTypes.StringType);
+        udfRegistration.registerJava("get_json_field", JsonFieldUdf.class.getName(), DataTypes.StringType);
+        udfRegistration.registerJava("text_split_value", TextSplitUdf.class.getName(), DataTypes.StringType);
     }
 
     @Override
@@ -108,8 +115,9 @@ public abstract class AbstractJob implements Job, Componentable {
 
     @Override
     public void run() {
-        Map<String, Object> context = new HashMap<>(50);
-        context.put("cache_dataset", new LinkedList<Dataset>());
+        Map<String, Object> context = new HashMap<>(64);
+        context.put(Constant.CACHE_DATASET_LIST, new LinkedList<Dataset>());
+        context.put(Constant.BROADCAST_LIST, new HashMap<String, Broadcast>(16));
 
         run(this.sparkSession, context);
     }

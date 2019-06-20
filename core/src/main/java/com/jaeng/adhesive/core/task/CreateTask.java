@@ -19,39 +19,64 @@ public class CreateTask extends AbstractTask {
     public void process(AbstractJob job, String line, SparkSession sparkSession, Map<String, Object> context) {
         super.process(job, line, sparkSession, context);
         JSONObject conf = new JSONObject();
-        String componentType;
-        String componentName;
+        String componentType = null;
+        String componentName = null;
 
-        String regex = "create +table +(.*?) *as *(.*)";
-        String table = PatternUtil.getValueByRegex(regex, line, 1);
-        String sql = PatternUtil.getValueByRegex(regex, line, 2);
+        String tableRegex = "create +table +(.*?) *as *(.*)";
+        String broadcastRegex = "create +broadcast +(.*?) *as +(.*?) *. *`(.*)` *(.*)";
+        //创建临时表
+        if (PatternUtil.findValueByRegex(tableRegex, line)) {
 
-        if (sql.contains("`")) {
-            componentType = ComponentTypeEnum.SOURCE.getType();
+            String table = PatternUtil.getValueByRegex(tableRegex, line, 1);
+            String sql = PatternUtil.getValueByRegex(tableRegex, line, 2);
 
-            int index = sql.indexOf("`");
-            componentName = sql.substring(0, index - 1);
-            String path = sql.substring(index + 1, sql.length() - 1);
+            if (sql.contains("`")) {
+                componentType = ComponentTypeEnum.SOURCE.getType();
+
+                int index = sql.indexOf("`");
+                componentName = sql.substring(0, index - 1);
+                String path = sql.substring(index + 1, sql.length() - 1);
+
+                try {
+                    JSONObject jsonObject = JSONObject.parseObject(path);
+                    conf.putAll(jsonObject);
+                } catch (Exception e) {
+                    conf.put("path", path);
+                }
+                conf.put("table", table);
+            } else {
+                componentType = ComponentTypeEnum.PROCESS.getType();
+                componentName = "sql";
+                conf.put("table", table);
+                conf.put("sql", sql);
+            }
+        } else if (PatternUtil.findValueByRegex(broadcastRegex, line)) {
+            //创建广播变量
+            componentName = "broadcast";
+            componentType = ComponentTypeEnum.PROCESS.getType();
+
+            String broadcastName = PatternUtil.getValueByRegex(broadcastRegex, line, 0);
+            String type = PatternUtil.getValueByRegex(broadcastRegex, line, 1);
+            String confStr = PatternUtil.getValueByRegex(broadcastRegex, line, 2);
+            String sql = PatternUtil.getValueByRegex(broadcastRegex, line, 3);
 
             try {
-                JSONObject jsonObject = JSONObject.parseObject(path);
-                conf.putAll(jsonObject);
+                conf.putAll(JSONObject.parseObject(confStr));
             } catch (Exception e) {
-                conf.put("path", path);
             }
-            conf.put("table", table);
-        } else {
-            componentType = ComponentTypeEnum.PROCESS.getType();
-            componentName = "sql";
-            conf.put("table", table);
+
             conf.put("sql", sql);
+            conf.put("broadcastName", broadcastName);
+            conf.put("type", type);
         }
-        try {
-            Component component = job.getComponent(componentType, componentName);
-            component.setConf(conf);
-            component.run(sparkSession, context);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (componentType != null && componentName != null) {
+            try {
+                Component component = job.getComponent(componentType, componentName);
+                component.setConf(conf);
+                component.run(sparkSession, context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

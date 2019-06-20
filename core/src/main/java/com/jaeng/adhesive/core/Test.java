@@ -4,6 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.util.PatternUtil;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.broadcast.Broadcast;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoders;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -16,18 +23,44 @@ import java.util.regex.Pattern;
 public class Test {
 
     public static void main(String[] args) {
-        String line = "insert kafka.`{\"broker\":\"172.17.30.212:9092,172.17.30.213:9092,172.17.30.214:9092,172.17.30.215:9092,172.17.30.216:9092\",\"topic\":\"socrates.yzb_model_live\",\"jsonField\":\"value\"}`";
 
 
-        String regex = "insert +(.*?) *. *`(.*)` *(.*)";
-        String type = PatternUtil.getValueByRegex(regex, line, 1);
-        String conf = PatternUtil.getValueByRegex(regex, line, 2);
-        String sql = PatternUtil.getValueByRegex(regex, line, 3);
+//        SparkSession sparkSession = new SparkSession.Builder()
+//                .master("local")
+//                .appName("test")
+//                .getOrCreate();
+//
+//        Dataset<Row> dataset = sparkSession.read()
+//                .json("/Users/jaeng/Developments/OwnProject/adhesive/file/device_price")
+//                .toDF();
+//
+//        Dataset<Row> dataset1 = dataset.map(new MapFunction<Row, JSONObject>() {
+//            @Override
+//            public JSONObject call(Row row) throws Exception {
+//                long price = row.getLong(1);
+//                JSONObject jsonObject = new JSONObject();
+//                String[] fieldNames = row.schema().fieldNames();
+//                for (String fieldName : fieldNames) {
+//                    jsonObject.put(fieldName, row.getAs(fieldName));
+//                }
+//                jsonObject.put("price_", price / 10);
+//                return jsonObject;
+//            }
+//        }, Encoders.kryo(JSONObject.class))
+//                .toDF();
+//
+//        dataset1.show();
+//
+////        dataset1.toDF().show();
+////
+////        dataset1.toJSON().toDF().show();
+//
+//        sparkSession.stop();
 
-        System.out.println(type);
-        System.out.println(conf);
-        System.out.println(sql);
-        System.out.println(StringUtils.isNotBlank(sql));
+        String regex = "create +broadcast +(.*?) *as +(.*?) *. *`(.*)` *(.*)";
+        System.out.println(PatternUtil.findValueByRegex(regex, "create table aa as select 1 as a;"));
+        System.out.println(PatternUtil.findValueByRegex(regex, "create broadcast aa as select 1 as a;"));
+        System.out.println(PatternUtil.findValueByRegex(regex, "create broadcast aa as jdbc.``;"));
     }
 
 }

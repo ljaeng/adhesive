@@ -11,12 +11,20 @@ public class ProcessConstant {
     /**
      * -----------------------------JoinJdbcProcess Start-----------------------------------------------
      */
-    public static final String PROCESS_JDBC_MYSQL_TYPE = "mysql";
-    public static final String PROCESS_JDBC_HIVE_TYPE = "hive";
-
-    public static final String PROCESS_JDBC_MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String PROCESS_JDBC_HIVE_DRIVER = "org.apache.hive.jdbc.HiveDriver";
     /**
-     * -----------------------------JoinJdbcProcessJoinJdbcProcess End-----------------------------------------------
+     * -----------------------------JoinJdbcProcess End-----------------------------------------------
+     */
+
+    /**
+     * -----------------------------BroadcastProcess Start-----------------------------------------------
+     */
+
+    public static final String BROADCAST_PROCESS_JDBC_TYPE = "jdbc";
+    public static final String BROADCAST_PROCESS_DATASET_TYPE = "dataset";
+    public static final String BROADCAST_PROCESS_BROADCAST_LIST_TYPE = "list";
+    public static final String BROADCAST_PROCESS_BROADCAST_MAP_TYPE = "map";
+
+    /**
+     * -----------------------------BroadcastProcess End-----------------------------------------------
      */
 }
