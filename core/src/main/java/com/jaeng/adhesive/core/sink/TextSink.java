@@ -6,10 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.spark.api.java.function.MapPartitionsFunction;
 import org.apache.spark.sql.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author lizheng
@@ -48,7 +45,8 @@ public class TextSink extends AbstractSink {
                                 if (i > 0) {
                                     sb.append(delimiter);
                                 }
-                                sb.append(row.getAs(field).toString());
+                                Object value = row.getAs(field);
+                                sb.append(value);
                             }
                             result.add(sb.toString());
                         }

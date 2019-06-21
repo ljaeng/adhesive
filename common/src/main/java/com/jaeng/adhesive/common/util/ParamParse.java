@@ -23,6 +23,10 @@ public class ParamParse {
         return parseData.getOrDefault("master", "").toString();
     }
 
+    public String getName() {
+        return parseData.getOrDefault("name", "").toString();
+    }
+
     public String getConfig() {
         return parseData.getOrDefault("config", "").toString();
     }

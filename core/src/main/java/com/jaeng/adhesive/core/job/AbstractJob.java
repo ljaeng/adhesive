@@ -40,8 +40,12 @@ public abstract class AbstractJob implements Job, Componentable {
     private void initSparkSession() {
         SparkSession.Builder builder = SparkSession.builder();
 
-        if (StringUtils.isNotEmpty(conf.getMaster())) {
+        if (StringUtils.isNotBlank(conf.getMaster())) {
             builder.master(conf.getMaster());
+        }
+
+        if (StringUtils.isNotBlank(conf.getName())) {
+            builder.appName(conf.getName());
         }
 
         this.sparkSession = builder.getOrCreate();
