@@ -51,6 +51,16 @@ public class Test {
 ////        dataset1.toJSON().toDF().show();
 //
 //        sparkSession.stop();
+
+        String tableRegex = "create +table +(.*?) *as +(.*?) *. *`(.*)` *(.*)";
+        String sql = "create table device_info as jdbc.`{\"url\":\"jdbc:mysql://192.168.236.10:3306/miui_db_test\", \"userName\":\"root\",\"password\":\"root\",\"jdbcTable\":\"device_info\",\"jdbcType\":\"mysql\",\"local\":\"true\"}`";
+//        String sql = "create table device_info as jdbc.`{\"url\":\"jdbc:mysql://192.168.236.10:3306/miui_db_test\", \"userName\":\"root\",\"password\":\"root\",\"jdbcTable\":\"device_info\",\"jdbcType\":\"mysql\",\"local\":\"true\"}` select * from device_info;";
+
+        System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 1));
+        System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 2));
+        System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 3));
+        System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 4));
+
     }
 
 }

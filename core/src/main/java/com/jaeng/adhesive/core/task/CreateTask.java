@@ -31,19 +31,22 @@ public class CreateTask extends AbstractTask {
             String sql = PatternUtil.getValueByRegex(tableRegex, line, 2);
 
             if (sql.contains("`")) {
+                tableRegex = "create +table +(.*?) *as +(.*?) *. *`(.*)` *(.*)";
                 componentType = ComponentTypeEnum.SOURCE.getType();
+                componentName = PatternUtil.getValueByRegex(tableRegex, line, 2);
 
-                int index = sql.indexOf("`");
-                componentName = sql.substring(0, index - 1);
-                String path = sql.substring(index + 1, sql.length() - 1);
+                String path = PatternUtil.getValueByRegex(tableRegex, line, 3);
+                sql = PatternUtil.getValueByRegex(tableRegex, line, 4);
 
                 try {
                     JSONObject jsonObject = JSONObject.parseObject(path);
                     conf.putAll(jsonObject);
+                    conf.put("sql", sql);
                 } catch (Exception e) {
                     conf.put("path", path);
                 }
                 conf.put("table", table);
+
             } else {
                 componentType = ComponentTypeEnum.PROCESS.getType();
                 componentName = "sql";
