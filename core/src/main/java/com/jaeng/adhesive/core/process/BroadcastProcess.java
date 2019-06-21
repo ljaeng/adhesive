@@ -71,7 +71,7 @@ public class BroadcastProcess extends AbstractProcess {
                 JdbcConnect jdbcConnect = null;
                 try {
                     jdbcConnect = new JdbcConnect(url, userName, password, driver);
-                    List<Map<String, Object>> list = jdbcConnect.query(sql);
+                    List<Map<String, Object>> list = jdbcConnect.query(sql, new JdbcConnect.ResultSetToMap());
                     for (Map<String, Object> map : list) {
                         if (broadcast instanceof Map) {
                             if (map.containsKey(keyFiled) && map.containsKey(valueFiled)) {

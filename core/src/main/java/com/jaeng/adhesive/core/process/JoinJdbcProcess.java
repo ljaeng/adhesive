@@ -64,11 +64,7 @@ public class JoinJdbcProcess extends AbstractProcess {
             Dataset result = dataset.mapPartitions((MapPartitionsFunction) input -> {
                 JdbcConnect jdbcConnect = null;
                 try {
-                    if (JdbcEnum.MYSQL.getType().equals(type)) {
-                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, JdbcEnum.MYSQL.getDriver());
-                    } else if (JdbcEnum.HIVE.getType().equals(type)) {
-                        jdbcConnect = new JdbcConnect(jdbcUrl, user, password, JdbcEnum.HIVE.getDriver());
-                    }
+                    jdbcConnect = JdbcConnect.initJdbcConnect(jdbcUrl, user, password, JdbcEnum.MYSQL.getDriver());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -125,7 +121,7 @@ public class JoinJdbcProcess extends AbstractProcess {
 
 
             try {
-                List<Map<String, Object>> list = jdbcConnect.query(querySql);
+                List<Map<String, Object>> list = jdbcConnect.query(querySql, new JdbcConnect.ResultSetToMap());
 
                 if (list != null && list.size() > 0) {
 

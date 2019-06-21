@@ -92,3 +92,5 @@ SELECT 'virgo' as device,
 where 1=1;
 process repatition.`{"table":"device_price","partiton":1}`;
 save text.`/Users/jaeng/Developments/OwnProject/adhesive/file/device_price_text` SELECT * from device_price;
+
+create table device_info as jdbc.`{"url":"jdbc:mysql://192.168.236.10:3306/miui_db_test", "userName":"root","password":"root","jdbcTable":"device_info","jdbcType":"mysql","local":"true","sql":" select * from device_info"}`;

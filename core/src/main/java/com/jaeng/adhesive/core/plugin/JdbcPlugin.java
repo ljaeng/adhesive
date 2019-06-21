@@ -50,11 +50,7 @@ public class JdbcPlugin extends AbstractPlugin {
         } else {
             JdbcConnect jdbcConnect = null;
             try {
-                if (JdbcEnum.HIVE.getType().equals(type)) {
-                    jdbcConnect = new JdbcConnect(url, user, password, JdbcEnum.HIVE.getDriver());
-                } else if (JdbcEnum.MYSQL.getType().equals(type)) {
-                    jdbcConnect = new JdbcConnect(url, user, password, JdbcEnum.MYSQL.getDriver());
-                }
+                jdbcConnect = JdbcConnect.initJdbcConnect(url, user, password, JdbcEnum.MYSQL.getDriver());
             } catch (Exception e) {
                 e.printStackTrace();
             }

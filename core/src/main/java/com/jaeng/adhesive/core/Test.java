@@ -1,20 +1,15 @@
 package com.jaeng.adhesive.core;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jaeng.adhesive.common.enums.JdbcEnum;
+import com.jaeng.adhesive.common.util.JdbcConnect;
 import com.jaeng.adhesive.common.util.PatternUtil;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.MapFunction;
-import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 /**
  * @author lizheng
@@ -56,7 +51,6 @@ public class Test {
 ////        dataset1.toJSON().toDF().show();
 //
 //        sparkSession.stop();
-
     }
 
 }
