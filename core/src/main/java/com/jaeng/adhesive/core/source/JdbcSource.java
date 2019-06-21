@@ -22,6 +22,8 @@ public class JdbcSource extends AbstractSource {
     private String password;
     private String jdbcTable;
     private String jdbcType;
+    private boolean local;
+    private String sql;
 
     @Override
     public void setConf(JSONObject conf) {
@@ -31,25 +33,34 @@ public class JdbcSource extends AbstractSource {
         password = MapUtils.getString(this.conf, "password", "");
         jdbcTable = MapUtils.getString(this.conf, "jdbcTable", "");
         jdbcType = MapUtils.getString(this.conf, "jdbcType", "");
+        local = MapUtils.getBooleanValue(this.conf, "local", false);
+        sql = MapUtils.getString(this.conf, "sql", "");
     }
 
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
-        Properties connectionProperties = new Properties();
-        connectionProperties.put("user", this.userName);
-        connectionProperties.put("password", this.password);
 
-        if (JdbcEnum.POSTGRE.getType().equals(jdbcType)) {
-            connectionProperties.put("driver", JdbcEnum.POSTGRE.getDriver());
-        } else if (JdbcEnum.MYSQL.getType().equals(jdbcType)) {
-            connectionProperties.put("driver", JdbcEnum.MYSQL.getDriver());
-        } else if (JdbcEnum.HIVE.getType().equals(jdbcType)) {
-            connectionProperties.put("driver", JdbcEnum.HIVE.getDriver());
+        Dataset<Row> dataset;
+        if (local) {
+            dataset = null;
+
+        } else {
+            Properties connectionProperties = new Properties();
+            connectionProperties.put("user", this.userName);
+            connectionProperties.put("password", this.password);
+
+            if (JdbcEnum.POSTGRE.getType().equals(jdbcType)) {
+                connectionProperties.put("driver", JdbcEnum.POSTGRE.getDriver());
+            } else if (JdbcEnum.MYSQL.getType().equals(jdbcType)) {
+                connectionProperties.put("driver", JdbcEnum.MYSQL.getDriver());
+            } else if (JdbcEnum.HIVE.getType().equals(jdbcType)) {
+                connectionProperties.put("driver", JdbcEnum.HIVE.getDriver());
+            }
+            dataset = sparkSession
+                    .read()
+                    .jdbc(this.url, this.jdbcTable, connectionProperties);
         }
 
-        Dataset<Row> dataset = sparkSession
-                .read()
-                .jdbc(this.url, this.jdbcTable, connectionProperties);
 
         super.registerTable(context, dataset);
     }

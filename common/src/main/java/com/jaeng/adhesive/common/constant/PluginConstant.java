@@ -12,8 +12,7 @@ public class PluginConstant {
      * -----------------------------AlarmPlugin Start-----------------------------------------------
      */
 
-    public static final String PLUGIN_ALARM_TYPE_WEIBO = "weibo";
-    public static final String PLUGIN_ALARM_TYPE_DINGDING = "dingding";
+    public static final String PLUGIN_ALARM_TYPE_XIAOMI = "xiaomi";
 
     /**
      * -----------------------------AlarmPlugin End-----------------------------------------------

@@ -18,6 +18,7 @@ import java.util.Map;
 public class TextSink extends AbstractSink {
 
     private boolean append;
+    private boolean overwrite;
     private String path;
     private String delimiter;
 
@@ -25,6 +26,7 @@ public class TextSink extends AbstractSink {
     public void setConf(JSONObject conf) {
         super.setConf(conf);
         this.append = MapUtils.getBooleanValue(conf, "append", false);
+        this.overwrite = MapUtils.getBooleanValue(conf, "overwrite", false);
         this.path = MapUtils.getString(conf, "path", "");
         this.delimiter = MapUtils.getString(conf, "delimiter", "\t");
     }
@@ -56,6 +58,8 @@ public class TextSink extends AbstractSink {
             }
             if (append) {
                 dataset.write().mode(SaveMode.Append).text(path);
+            } else if (overwrite) {
+                dataset.write().mode(SaveMode.Overwrite).text(path);
             } else {
                 dataset.write().text(path);
             }

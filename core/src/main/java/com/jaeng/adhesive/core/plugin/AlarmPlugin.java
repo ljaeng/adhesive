@@ -31,16 +31,14 @@ public class AlarmPlugin extends AbstractPlugin {
     public void setConf(JSONObject conf) {
         super.setConf(conf);
 
-        this.type = MapUtils.getString(conf, "type", PluginConstant.PLUGIN_ALARM_TYPE_WEIBO);
+        this.type = MapUtils.getString(conf, "type", PluginConstant.PLUGIN_ALARM_TYPE_XIAOMI);
         this.condition = MapUtils.getString(conf, "condition", null);
         this.msg = MapUtils.getString(conf, "msg", null);
         this.to = MapUtils.getString(conf, "to", null);
 
 
-        if (PluginConstant.PLUGIN_ALARM_TYPE_WEIBO.equals(type)) {
-            this.url = "http://172.17.31.2/alps/alert/weibo";
-        } else if (PluginConstant.PLUGIN_ALARM_TYPE_WEIBO.equals(type)) {
-            this.url = "http://172.17.31.2/alps/alert/dingding";
+        if (PluginConstant.PLUGIN_ALARM_TYPE_XIAOMI.equals(type)) {
+            this.url = "alarm/xiaomi";
         }
     }
 
@@ -60,9 +58,9 @@ public class AlarmPlugin extends AbstractPlugin {
                 Map<String, String> requestData = new HashMap<>();
                 requestData.put("msg", msg);
                 requestData.put("to", to);
-                logger.info("发送告警, params:{}", JSONObject.toJSONString(requestData));
+                logger.info("发送报警, params:{}", JSONObject.toJSONString(requestData));
                 String result = HttpUtil.sendHttpGet(url, requestData);
-                logger.info("发送微信告警, result:{}", result);
+                logger.info("发送报警, result:{}", result);
             }
 
         }

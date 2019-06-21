@@ -15,6 +15,7 @@ import java.util.Map;
 public class JsonSink extends AbstractSink {
 
     private boolean append;
+    private boolean overwrite;
     private String path;
 
     @Override
@@ -22,6 +23,7 @@ public class JsonSink extends AbstractSink {
         super.setConf(conf);
 
         append = MapUtils.getBooleanValue(conf, "append", false);
+        this.overwrite = MapUtils.getBooleanValue(conf, "overwrite", false);
         path = MapUtils.getString(conf, "path", "");
     }
 
@@ -31,6 +33,8 @@ public class JsonSink extends AbstractSink {
         if (dataset != null) {
             if (append) {
                 dataset.write().mode(SaveMode.Append).json(path);
+            } else if (overwrite) {
+                dataset.write().mode(SaveMode.Overwrite).json(path);
             } else {
                 dataset.write().json(path);
             }

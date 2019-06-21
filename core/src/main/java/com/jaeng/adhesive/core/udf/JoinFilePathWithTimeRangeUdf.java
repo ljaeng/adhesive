@@ -13,7 +13,7 @@ import java.util.Date;
  * @author lizheng
  * @date 2019/6/17
  */
-public class JoinFilePathWithTimeRange implements UDF3<String, String, String, String>, Registerable {
+public class JoinFilePathWithTimeRangeUdf implements UDF3<String, String, String, String>, Registerable {
 
 
     @Override
@@ -35,10 +35,8 @@ public class JoinFilePathWithTimeRange implements UDF3<String, String, String, S
             timeRangeSb.append("}");
             return timeRangeSb.toString();
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw e;
         }
-
-        return null;
     }
 
     @Override

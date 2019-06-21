@@ -57,10 +57,6 @@ public class Test {
 //
 //        sparkSession.stop();
 
-        String regex = "create +broadcast +(.*?) *as +(.*?) *. *`(.*)` *(.*)";
-        System.out.println(PatternUtil.findValueByRegex(regex, "create table aa as select 1 as a;"));
-        System.out.println(PatternUtil.findValueByRegex(regex, "create broadcast aa as select 1 as a;"));
-        System.out.println(PatternUtil.findValueByRegex(regex, "create broadcast aa as jdbc.``;"));
     }
 
 }

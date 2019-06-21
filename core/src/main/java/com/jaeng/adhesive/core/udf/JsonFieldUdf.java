@@ -16,16 +16,13 @@ public class JsonFieldUdf implements UDF2<String, String, String>, Registerable 
 
     @Override
     public String call(String jsonStr, String key) throws Exception {
-        JSONObject jsonObject = null;
         try {
-            jsonObject = JSONObject.parseObject(jsonStr);
+            JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+            return jsonObject.getString(key);
         } catch (Exception e) {
             System.out.println(String.format("[JsonFieldUdf] 解析Json字符串错误.[%s]", key));
+            throw e;
         }
-        if (jsonObject != null) {
-            return jsonObject.getString(key);
-        }
-        return null;
     }
 
     @Override

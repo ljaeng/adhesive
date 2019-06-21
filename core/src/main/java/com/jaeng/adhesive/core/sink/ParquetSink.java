@@ -21,6 +21,7 @@ public class ParquetSink extends AbstractSink {
 
     private String partitionFiled;
     private boolean append;
+    private boolean overwrite;
     private int blockSize;
     private String path;
 
@@ -31,6 +32,7 @@ public class ParquetSink extends AbstractSink {
 
         this.partitionFiled = MapUtils.getString(conf, "partitionFiled", "");
         this.append = MapUtils.getBooleanValue(conf, "append", false);
+        this.overwrite = MapUtils.getBooleanValue(conf, "overwrite", false);
         this.blockSize = MapUtils.getIntValue(conf, "blockSize", DEFAULT_BLOCK_SIZE);
         this.path = MapUtils.getString(conf, "path", "");
     }
@@ -43,6 +45,8 @@ public class ParquetSink extends AbstractSink {
             DataFrameWriter dataFrameWriter = dataset.write();
             if (append) {
                 dataFrameWriter = dataFrameWriter.mode(SaveMode.Append);
+            } else if (overwrite) {
+                dataFrameWriter = dataFrameWriter.mode(SaveMode.Overwrite);
             }
 
             if (StringUtils.isNotBlank(partitionFiled)) {

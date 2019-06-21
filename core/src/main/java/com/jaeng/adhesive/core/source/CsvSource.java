@@ -21,6 +21,16 @@ import java.util.Map;
  */
 public class CsvSource extends AbstractSource {
 
+    private boolean split;
+    private String splitStr;
+
+    @Override
+    public void setConf(JSONObject conf) {
+        super.setConf(conf);
+        split = MapUtils.getBooleanValue(conf, "split", false);
+        splitStr = MapUtils.getString(conf, "splitStr", ",");
+    }
+
     @Override
     public void run(SparkSession sparkSession, Map<String, Object> context) {
 
@@ -78,11 +88,14 @@ public class CsvSource extends AbstractSource {
             }
         }
 
-        Dataset dataset;
         if (structType != null) {
-            dataset = dataFrameReader.schema(structType).load(path.split(","));
+            dataFrameReader = dataFrameReader.schema(structType);
+        }
+        Dataset dataset;
+        if (split) {
+            dataset = dataFrameReader.load(path.split(splitStr));
         } else {
-            dataset = dataFrameReader.load(path.split(","));
+            dataset = dataFrameReader.load(path);
         }
 
         super.registerTable(context, dataset);
