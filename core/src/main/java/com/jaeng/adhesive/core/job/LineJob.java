@@ -41,10 +41,11 @@ public class LineJob extends AbstractJob {
 
                         if (line.startsWith("stop") || line.startsWith("exit") || line.startsWith("quit")) {
                             processFlag = false;
-                            System.out.println("\n------------Bye------------");
+                            System.out.println("------------Bye------------");
                             System.out.println("---------------------------");
                             break;
                         }
+
                         long start = System.currentTimeMillis();
                         try {
                             TaskUtil.process(this, line, sparkSession, context);

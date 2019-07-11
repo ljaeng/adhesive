@@ -18,7 +18,8 @@ public class Launcher {
      */
     public static void main(String[] args) {
 
-        args = new String[]{"-master", "local", "-mode", "line"};
+//        args = new String[]{"-master", "local", "-mode", "file", "-config", "/Users/jaeng/Desktop/tools/adhesive/test.sql"};
+//        args = new String[]{"-master", "local", "-mode", "line"};
 
         ParamParse paramParse = ParamParse.parse(args);
 

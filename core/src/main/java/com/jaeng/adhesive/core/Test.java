@@ -2,6 +2,7 @@ package com.jaeng.adhesive.core;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jaeng.adhesive.common.enums.JdbcEnum;
+import com.jaeng.adhesive.common.util.CollectionUtil;
 import com.jaeng.adhesive.common.util.JdbcConnect;
 import com.jaeng.adhesive.common.util.PatternUtil;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -61,6 +62,11 @@ public class Test {
         System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 3));
         System.out.println(PatternUtil.getValueByRegex(tableRegex, sql, 4));
 
-    }
+        List<Integer> list = Arrays.asList(1, 2);
+        list.stream()
+                .parallel()
+                .filter(item -> item >= 2)
+                .forEach(item -> System.out.println(item));
 
+    }
 }

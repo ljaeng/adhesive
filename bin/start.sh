@@ -5,11 +5,10 @@ CLUSTER="zjyprc-hadoop"
 #spark job
 /home/rd/tools/infra-client/bin/spark-submit --cluster ${CLUSTER}-spark2.1 --force-update \
 --master yarn \
---deploy-mode client \
+--deploy-mode yarn-client \
 --queue root.production.miui_group.weather.preload \
 --driver-memory 2g \
 --executor-memory 3g \
---executor-cores 1  \
 --conf spark.yarn.executor.memoryOverhead=2048 \
 --conf spark.sql.shuffle.partitions=400 \
 --conf spark.dynamicAllocation.enabled=true \
@@ -19,7 +18,7 @@ CLUSTER="zjyprc-hadoop"
 --conf spark.speculation=true \
 --conf spark.speculation.multiplier=2 \
 --conf spark.speculation.quantile=0.5 \
---conf  spark.scheduler.executorTaskBlacklistTime=300000 \
+--conf spark.scheduler.executorTaskBlacklistTime=300000 \
 --conf spark.blacklist.enabled=true \
 --conf spark.shuffle.compress=false \
 --conf spark.shuffle.spill.compress=false  \
