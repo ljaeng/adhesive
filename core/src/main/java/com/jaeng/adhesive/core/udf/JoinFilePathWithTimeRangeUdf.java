@@ -13,7 +13,7 @@ import java.util.Date;
  * @author lizheng
  * @date 2019/6/17
  */
-public class JoinFilePathWithTimeRangeUdf implements UDF3<String, String, String, String>, Registerable {
+public class JoinFilePathWithTimeRangeUdf extends AbstractUdf implements UDF3<String, String, String, String> {
 
 
     @Override
@@ -47,5 +47,10 @@ public class JoinFilePathWithTimeRangeUdf implements UDF3<String, String, String
     @Override
     public DataType getDataType() {
         return DataTypes.StringType;
+    }
+
+    @Override
+    public String use_desc() {
+        return "join_file_path_with_time_range(yyyyMM, 20190501, 20190503), 返回值: {20190501,20190502}; 第一个参数:当前的日期格式, 第二个参数:开始时间, 第三个参数:结束时间";
     }
 }

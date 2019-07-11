@@ -12,7 +12,7 @@ import org.apache.spark.sql.types.DataTypes;
  * @author lizheng
  * @date 2019/6/9
  */
-public class JsonFieldUdf implements UDF2<String, String, String>, Registerable {
+public class JsonFieldUdf extends AbstractUdf implements UDF2<String, String, String> {
 
     @Override
     public String call(String jsonStr, String key) throws Exception {
@@ -33,5 +33,10 @@ public class JsonFieldUdf implements UDF2<String, String, String>, Registerable 
     @Override
     public DataType getDataType() {
         return DataTypes.StringType;
+    }
+
+    @Override
+    public String use_desc() {
+        return "get_json_field({\"key\": 1}, key), 返回值: 1; 第一个参数:JSON字符串, 第二个参数:要取的Key";
     }
 }

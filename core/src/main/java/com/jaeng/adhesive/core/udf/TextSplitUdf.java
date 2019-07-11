@@ -9,7 +9,7 @@ import org.apache.spark.sql.types.DataTypes;
  * @author lizheng
  * @date 2019/6/17
  */
-public class TextSplitUdf implements UDF3<String, String, Integer, String>, Registerable {
+public class TextSplitUdf extends AbstractUdf implements UDF3<String, String, Integer, String> {
 
     /**
      * @param line  需要切分的字符串
@@ -36,5 +36,10 @@ public class TextSplitUdf implements UDF3<String, String, Integer, String>, Regi
     @Override
     public DataType getDataType() {
         return DataTypes.StringType;
+    }
+
+    @Override
+    public String use_desc() {
+        return "text_split_value(Hello  World, \\t, 0), 返回值: Hello; 第一个参数:要切分的字符串, 第二个参数:分隔符, 第三个参数:索引";
     }
 }

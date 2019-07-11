@@ -8,10 +8,7 @@ import com.jaeng.adhesive.core.api.Component;
 import com.jaeng.adhesive.core.api.Componentable;
 import com.jaeng.adhesive.core.api.Job;
 import com.jaeng.adhesive.core.api.Registerable;
-import com.jaeng.adhesive.core.udf.DateFormatUdf;
-import com.jaeng.adhesive.core.udf.JoinFilePathWithTimeRangeUdf;
-import com.jaeng.adhesive.core.udf.JsonFieldUdf;
-import com.jaeng.adhesive.core.udf.TextSplitUdf;
+import com.jaeng.adhesive.core.udf.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.Dataset;
@@ -62,10 +59,18 @@ public abstract class AbstractJob implements Job, Componentable {
 //                e.printStackTrace();
 //            }
 //        }
-        udfRegistration.registerJava("join_file_path_with_time_range", JoinFilePathWithTimeRangeUdf.class.getName(), DataTypes.StringType);
-        udfRegistration.registerJava("get_json_field", JsonFieldUdf.class.getName(), DataTypes.StringType);
-        udfRegistration.registerJava("text_split_value", TextSplitUdf.class.getName(), DataTypes.StringType);
-        udfRegistration.registerJava("date_format2", DateFormatUdf.class.getName(), DataTypes.StringType);
+        for (Class udfClass : UDFConstant.UDF_LIST) {
+            try {
+                Registerable udf = (Registerable) udfClass.newInstance();
+                udfRegistration.registerJava(udf.getRegisterName(), udfClass.getName(), udf.getDataType());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+//        udfRegistration.registerJava("join_file_path_with_time_range", JoinFilePathWithTimeRangeUdf.class.getName(), DataTypes.StringType);
+//        udfRegistration.registerJava("get_json_field", JsonFieldUdf.class.getName(), DataTypes.StringType);
+//        udfRegistration.registerJava("text_split_value", TextSplitUdf.class.getName(), DataTypes.StringType);
+//        udfRegistration.registerJava("date_format2", DateFormatUdf.class.getName(), DataTypes.StringType);
     }
 
     @Override

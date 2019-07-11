@@ -23,4 +23,11 @@ public interface Registerable {
      * @return
      */
     DataType getDataType();
+
+    /**
+     * 使用方法
+     *
+     * @return
+     */
+    String use_desc();
 }
