@@ -67,10 +67,6 @@ public abstract class AbstractJob implements Job, Componentable {
                 e.printStackTrace();
             }
         }
-//        udfRegistration.registerJava("join_file_path_with_time_range", JoinFilePathWithTimeRangeUdf.class.getName(), DataTypes.StringType);
-//        udfRegistration.registerJava("get_json_field", JsonFieldUdf.class.getName(), DataTypes.StringType);
-//        udfRegistration.registerJava("text_split_value", TextSplitUdf.class.getName(), DataTypes.StringType);
-//        udfRegistration.registerJava("date_format2", DateFormatUdf.class.getName(), DataTypes.StringType);
     }
 
     @Override
@@ -129,6 +125,8 @@ public abstract class AbstractJob implements Job, Componentable {
         Map<String, Object> context = new HashMap<>(64);
         context.put(Constant.CACHE_DATASET_LIST, new LinkedList<Dataset>());
         context.put(Constant.BROADCAST_LIST, new HashMap<String, Broadcast>(16));
+
+        context.putAll(conf.getArgs());
 
         run(this.sparkSession, context);
     }

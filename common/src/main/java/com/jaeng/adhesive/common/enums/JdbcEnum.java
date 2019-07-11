@@ -8,7 +8,7 @@ public enum JdbcEnum {
 
     MYSQL("mysql", "com.mysql.jdbc.Driver"),
     HIVE("hive", "org.apache.hive.jdbc.HiveDriver"),
-    POSTGRE("postgrepostgre", "org.postgresql.Driver"),
+    POSTGRE("postgre", "org.postgresql.Driver"),
     ;
 
     private String type;

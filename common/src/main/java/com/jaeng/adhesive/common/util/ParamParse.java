@@ -35,6 +35,10 @@ public class ParamParse {
         return parseData.getOrDefault("mode", "").toString();
     }
 
+    public Map<String, Object> getArgs() {
+        return parseData;
+    }
+
     public static ParamParse parse(String[] args) {
         Map<String, Object> parseData = new HashMap<>(CollectionUtil.initSize(args.length / 2, CollectionUtil.HASH_MAP_DEFAULT_LOAD_FACTOR));
         String key = null;
