@@ -91,7 +91,7 @@ public class HelpTask extends AbstractTask {
             helpSb.append("\n");
 
             helpSb.append("插件:\n");
-            helpSb.append("\tprocess plugin.`{\"to\":\"\",\"msg\":\"\", \"condition\":\"2>1\"}`;\n");
+            helpSb.append("\tplugin alarm.`{\"to\":\"\",\"msg\":\"\", \"condition\":\"2>1\"}`;\n");
             helpSb.append("\n");
 
             helpStr = helpSb.toString();
