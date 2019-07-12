@@ -1,7 +1,6 @@
 package com.jaeng.adhesive.core.udf;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jaeng.adhesive.core.api.Registerable;
 import org.apache.spark.sql.api.java.UDF2;
 import org.apache.spark.sql.types.DataType;
 import org.apache.spark.sql.types.DataTypes;

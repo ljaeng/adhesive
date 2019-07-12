@@ -1,7 +1,6 @@
 package com.jaeng.adhesive.core.udf;
 
 import com.jaeng.adhesive.common.constant.Constant;
-import com.jaeng.adhesive.core.api.Registerable;
 import org.apache.spark.sql.api.java.UDF3;
 import org.apache.spark.sql.types.DataType;
 import org.apache.spark.sql.types.DataTypes;
