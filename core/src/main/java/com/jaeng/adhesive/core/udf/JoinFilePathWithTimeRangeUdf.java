@@ -50,7 +50,7 @@ public class JoinFilePathWithTimeRangeUdf extends AbstractUdf implements UDF3<St
     }
 
     @Override
-    public String use_desc() {
+    protected String use_desc() {
         return "join_file_path_with_time_range(yyyyMM, 20190501, 20190503), 返回值: {20190501,20190502}; 第一个参数:当前的日期格式, 第二个参数:开始时间, 第三个参数:结束时间";
     }
 }

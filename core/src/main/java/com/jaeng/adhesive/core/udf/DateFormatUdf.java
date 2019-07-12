@@ -40,7 +40,7 @@ public class DateFormatUdf extends AbstractUdf implements UDF3<String, String, S
     }
 
     @Override
-    public String use_desc() {
+    protected String use_desc() {
         return "date_format2(20190501, yyyyMMdd, yyyy-MM-dd), 返回值: 2019-05-01; 第一个参数:需要转换的日期字符串, 第二个参数:当前的日期格式, 第三个参数:需要转换的日期格式";
     }
 }

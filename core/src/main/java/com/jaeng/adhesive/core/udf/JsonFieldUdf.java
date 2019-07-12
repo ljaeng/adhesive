@@ -36,7 +36,7 @@ public class JsonFieldUdf extends AbstractUdf implements UDF2<String, String, St
     }
 
     @Override
-    public String use_desc() {
+    protected String use_desc() {
         return "get_json_field({\"key\": 1}, key), 返回值: 1; 第一个参数:JSON字符串, 第二个参数:要取的Key";
     }
 }

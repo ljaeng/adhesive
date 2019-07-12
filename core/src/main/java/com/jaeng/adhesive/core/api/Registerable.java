@@ -1,7 +1,5 @@
 package com.jaeng.adhesive.core.api;
 
-import org.apache.spark.sql.types.DataType;
-
 /**
  * 支持注册
  *
@@ -16,18 +14,4 @@ public interface Registerable {
      * @return
      */
     String getRegisterName();
-
-    /**
-     * 类型
-     *
-     * @return
-     */
-    DataType getDataType();
-
-    /**
-     * 使用方法
-     *
-     * @return
-     */
-    String use_desc();
 }

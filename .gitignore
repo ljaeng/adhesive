@@ -13,4 +13,5 @@ config/*
 */config/*
 logs/*
 */logs/*
+pids
 todo

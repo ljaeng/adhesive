@@ -39,7 +39,7 @@ public class TextSplitUdf extends AbstractUdf implements UDF3<String, String, In
     }
 
     @Override
-    public String use_desc() {
+    protected String use_desc() {
         return "text_split_value(Hello  World, \\t, 0), 返回值: Hello; 第一个参数:要切分的字符串, 第二个参数:分隔符, 第三个参数:索引";
     }
 }

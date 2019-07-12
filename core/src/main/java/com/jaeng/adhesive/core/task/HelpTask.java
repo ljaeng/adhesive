@@ -1,9 +1,8 @@
 package com.jaeng.adhesive.core.task;
 
-import com.jaeng.adhesive.core.api.Registerable;
 import com.jaeng.adhesive.core.job.AbstractJob;
 import com.jaeng.adhesive.core.udf.AbstractUdf;
-import com.jaeng.adhesive.core.udf.UDFConstant;
+import com.jaeng.adhesive.core.udf.UdfRegisterConstant;
 import org.apache.commons.lang.StringUtils;
 import org.apache.spark.sql.SparkSession;
 
@@ -78,7 +77,7 @@ public class HelpTask extends AbstractTask {
             helpSb.append("\n");
 
             helpSb.append("UDF函数:\n");
-            for (Class udfClass : UDFConstant.UDF_LIST) {
+            for (Class udfClass : UdfRegisterConstant.UDF_REGISTER_LIST) {
                 try {
                     AbstractUdf udf = (AbstractUdf) udfClass.newInstance();
                     helpSb.append("\t")

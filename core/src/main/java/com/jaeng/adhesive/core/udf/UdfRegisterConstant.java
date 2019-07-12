@@ -7,9 +7,9 @@ import java.util.List;
  * @author lizheng
  * @date 2019/7/11
  */
-public class UDFConstant {
+public class UdfRegisterConstant {
 
-    public static final List<Class> UDF_LIST = Arrays.asList(
+    public static final List<Class> UDF_REGISTER_LIST = Arrays.asList(
             DateFormatUdf.class,
             JoinFilePathWithTimeRangeUdf.class,
             JsonFieldUdf.class,

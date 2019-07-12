@@ -14,7 +14,6 @@ import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.UDFRegistration;
-import org.apache.spark.sql.types.DataTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +58,7 @@ public abstract class AbstractJob implements Job, Componentable {
 //                e.printStackTrace();
 //            }
 //        }
-        for (Class udfClass : UDFConstant.UDF_LIST) {
+        for (Class udfClass : UdfRegisterConstant.UDF_REGISTER_LIST) {
             try {
                 Registerable udf = (Registerable) udfClass.newInstance();
                 udfRegistration.registerJava(udf.getRegisterName(), udfClass.getName(), udf.getDataType());
