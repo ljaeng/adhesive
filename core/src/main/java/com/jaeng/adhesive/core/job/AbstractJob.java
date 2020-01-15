@@ -60,7 +60,7 @@ public abstract class AbstractJob implements Job, Componentable {
 //        }
         for (Class udfClass : UdfRegisterConstant.UDF_REGISTER_LIST) {
             try {
-                Registerable udf = (Registerable) udfClass.newInstance();
+                AbstractUdf udf = (AbstractUdf) udfClass.newInstance();
                 udfRegistration.registerJava(udf.getRegisterName(), udfClass.getName(), udf.getDataType());
             } catch (Exception e) {
                 e.printStackTrace();

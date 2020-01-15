@@ -13,7 +13,8 @@ public class UdfRegisterConstant {
             DateFormatUdf.class,
             JoinFilePathWithTimeRangeUdf.class,
             JsonFieldUdf.class,
-            TextSplitUdf.class
+            TextSplitUdf.class,
+            ShardingHashUdf.class
     );
 
 }
